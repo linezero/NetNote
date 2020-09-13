@@ -1,0 +1,48 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "用户登录";
+}
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            <form method="post" class="form-horizontal" role="form">
+                <h4>用户登录</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Login.UserName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Login.UserName" class="form-control" required />
+                        <span asp-validation-for="Login.UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Login.Password" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Login.Password" class="form-control" required />
+                        <span asp-validation-for="Login.Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="Login.RememberMe" />
+                            <label asp-for="Login.RememberMe"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="登录" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a asp-page="Register">注册新用户</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

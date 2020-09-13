@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "首页";
+    var pageIndex = Model.PageIndex;
+    var pageCount = Model.PageCount;
+    var pageStart = pageIndex - 2 > 0 ? pageIndex - 2 : 1;
+    var pageEnd = pageIndex + 2 >= pageCount ? pageCount : pageStart + 4;
+}
+
+<div class="row"><a asp-page="Add">添加Note</a></div>
+<form method="post">
+    @foreach (var item in Model.Notes)
+    {
+        <div class="row">
+            <div class="card col-md-12">
+                <div class="card-body">
+                    @if (string.IsNullOrEmpty(item.Password))
+                    {
+                        <h4 class="card-title"><a asp-page="Detail" asp-route-id="@item.Id">@item.Title</a></h4>
+                        <h6 class="card-subtitle text-muted">@item.Type.Name</h6>
+                        <p class="card-text">@Html.Raw(item.Content)</p>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-primary">编辑</a>
+                        <button type="submit" asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-primary">删除</button>
+                        @if (!string.IsNullOrEmpty(item.Attachment))
+                        {
+                            <a href="@item.Attachment" class="card-link" target="_blank">下载</a>
+                        }
+                    }
+                    else
+                    {
+                        <p class="card-text">内容已加密</p>
+                        <a asp-page="Detail" asp-route-id="@item.Id">点此访问加密内容</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item@(pageIndex == 1 ? " disabled" : "")"><a class="page-link" asp-page="Index" asp-route-PageIndex="@(pageIndex==1?1:pageIndex-1)">&laquo;</a></li>
+        @for (int i = pageStart; i <= pageEnd; i++)
+        {
+            <li class="page-item@(pageIndex == i ? " active" : "")" ><a class="page-link" asp-page="Index" asp-route-PageIndex="@i">@i</a></li>
+        }
+        <li class="page-item@(pageIndex == pageCount ? " disabled" : "")"><a class="page-link" asp-page="Index" asp-route-PageIndex="@(pageIndex==pageCount?pageCount:pageIndex+1)">&raquo;</a></li>
+    </ul>
+</nav>

@@ -1,0 +1,31 @@
+﻿@page
+@model DetailModel
+@{
+    ViewData["Title"] = Model.Note?.Title;
+}
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Note == null)
+        {
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Password">密码</label>
+                    <input asp-for="Password" type="password" placeholder="请输入密码" class="form-control" />
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary text-center">查看</button>
+                </p>
+            </form>
+        }
+        else
+        {
+            <h3>@Model.Note.Title</h3>
+            <h6>类型：@Model.Note.Type.Name</h6>
+            <div class="content">@Html.Raw(Model.Note.Content)</div>
+            if (!string.IsNullOrEmpty(Model.Note.Attachment))
+            {
+                <a href="@Model.Note.Attachment">下载</a>
+            }
+        }
+    </div>
+</div>

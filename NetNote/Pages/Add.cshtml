@@ -1,0 +1,50 @@
+﻿@page
+@model AddModel
+@{
+    ViewData["Title"] = "添加Note";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/lib/summernote/dist/summernote-bs4.min.css" />
+}
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Note.Title"></label>
+                <input asp-for="Note.Title" type="text" placeholder="标题" class="form-control" maxlength="100" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Content"></label>
+                <textarea asp-for="Note.Content" id="note" data-provide="markdown" rows="10" cols="50" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Type"></label>
+                <select asp-for="Note.Type" asp-items="Model.Types" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Password"></label>
+                <input asp-for="Note.Password" type="password" placeholder="如需加密请输入密码" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Note.Attachment"></label>
+                <input asp-for="Note.Attachment" type="file" class="form-control" />
+            </div>
+            <hr />
+            <p>
+                <button type="submit" class="btn btn-primary">保存</button>
+            </p>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/summernote/dist/summernote-bs4.min.js"></script>
+    <script src="~/lib/summernote/dist/lang/summernote-zh-CN.min.js"></script>
+    <script>
+        $('#note').summernote({
+            lang:"zh-CN",
+            tabsize: 2,
+            height: 240
+        });
+    </script>
+}
